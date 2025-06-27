@@ -14,6 +14,7 @@ module Jekyll
         self.data['date'] = pub['date']
         self.data['authors'] = pub['authors']
         self.data['embed'] = pub['embed']
+        self.data['savings'] = pub['savings']
       end
     end
   

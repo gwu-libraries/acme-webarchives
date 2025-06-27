@@ -30,6 +30,9 @@ title: Home
       {% endif %}
 
       <p><strong>ACME Grant Year:</strong> {{ pub.date }}</p>
+      {% if pub.savings %}
+        <p><strong>Amount Saved by GW Students:</strong> ${{ pub.savings }}</p>
+      {% endif %}
       <p>{{ pub.description }}</p>
     </div>
   {% endfor %}

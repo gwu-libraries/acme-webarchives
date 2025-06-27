@@ -15,6 +15,7 @@
   authors:
     - "Dalton"
   date: "2025"
+  savings: "23,222"
   embed:
     sourceUrl: "assets/pubs/test/tweet-example.wacz"
     url: "https://oembed.link/https://twitter.com/webrecorder_io/status/1565881026215219200"
