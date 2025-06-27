@@ -1,5 +1,5 @@
 - title: "PyGIS"
-  description: "Open Source Spatial Programming & Remote Sensing "
+  description: "Open Source Spatial Programming & Remote Sensing"
   date: "2023"
   authors:
     - "Michael Manne"
@@ -28,3 +28,13 @@
   embed:
     sourceUrl: "assets/pubs/acda/acda.warc"
     url: "https://blogs.gwu.edu/juanklopper/educational-resources/applied-categorical-data-analysis/"
+
+- title: "Screening Shakespeare : a film course / by Alexa Alice Joubin"
+  description: "An open-access web-based textbook, writen and designed by Alexa Alice Joubin based on her original research. Introduces students to key concepts of film studies and film theory within the context of adaptions of Shakespeare's play....testing very long descriptions...Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit....."
+  date: "2024"
+  authors:
+    - "Alexa Alice Joubin"
+  embed:
+    sourceUrl: "assets/pubs/screen_shakespeare/screen_shakespeare.wacz"
+    url: "https://screenshakespeare.org/"
+
