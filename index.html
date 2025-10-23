@@ -1,39 +1,31 @@
 ---
 layout: default
-title: Home
+title: Open Educational Resources - ACME Web Archives Collection
+category: home
 ---
 
 <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-
-<h1> Open Educational Resources - ACME Web Archives Collection</h1>
-
-<div class="intro_p">
-  <p>Explore archived versions of open educational resources created through support of the <a href="https://library.gwu.edu/adapting-course-materials-for-equity-grant">Adapting Course Materials for Equity Faculty Grant (ACME)</a>. ACME awards stipends to GW faculty to adopt and adapt open or zero-cost course materials.</p>
-</div>
-
-<div class="card-grid">
-<!--reverse oubs sort by year-->
-  {% assign sorted_pubs = site.data.publications | sort: "date" | reverse %}
-  {% for pub in sorted_pubs %}
-    <div class="card">
-      <h2><a href="/publications/{{ pub.title | slugify }}/">{{ pub.title }}</a></h2>
-
-      {% if pub.authors %}
-        <p><strong>
-        <!---if multiple authors present "authors", if 1 author present "author"-->
-          {% if pub.authors.size > 1 %}
-            Authors:
-          {% else %}
-            Author:
-          {% endif %}
-        </strong> {{ pub.authors | join: ', ' }}</p>
-      {% endif %}
-
-      <p><strong>ACME Grant Year:</strong> {{ pub.date }}</p>
-      {% if pub.savings %}
-        <p><strong>Amount Saved by GW Students:</strong> ${{ pub.savings }}</p>
-      {% endif %}
-      <p>{{ pub.description }}</p>
-    </div>
-  {% endfor %}
-</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th id="title"><h2>Title</h2></th>
+        <th id="desc"><h2>Description</h2></th>
+        <th id="auth"><h2>Authors</h2></th>
+        <th id="date"><h2>Date</h2></th>
+        <th id="url"><h2>Source</h2></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- reverse pubs sort by year -->
+      {% assign sorted_pubs = site.data.publications | sort: "date" | reverse %}
+      {% for pub in sorted_pubs %}
+        <tr>
+          <td id="title"><h3><a href="/publications/{{ pub.title | slugify }}/">{{ pub.title }}</a></h3></td>
+          <td id="desc">{{ pub.description }}</td>
+          <td id="auth">{{ pub.authors | join: ', ' }}</td>
+          <td id="date">{{ pub.date }}</td>
+          <td id="url"><a href="{{ pub.embed.url }}">{{ pub.embed.url }}</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>

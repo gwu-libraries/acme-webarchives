@@ -7,20 +7,44 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 <body>
-
-  <header>
-    <nav>
-      <a href="{{ '/' | relative_url }}">Home</a>
-    </nav>
-  </header>
-
-  <main>
+  <div class="left info">
+    <header>
+      <nav>
+        <div id="site-name">
+          <img id="header-logo"
+               src="/assets/images/logo.png" />
+          <a href="{{ '/' | relative_url }}">ACME Web Archives Collection</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <h1>{{ page.title }}</h1>
+      {% if page.category == 'home' %}
+        <div class="intro_p">
+          <p>Explore archived versions of open educational resources created through support of the <a href="https://library.gwu.edu/adapting-course-materials-for-equity-grant">Adapting Course Materials for Equity Faculty Grant (ACME)</a>. ACME awards stipends to GW faculty to adopt and adapt open or zero-cost course materials.</p>
+        </div>
+      {% else %}
+        {% if page.authors %}
+          <p><strong>
+            {% if page.authors.size > 1 %}
+              Authors:
+            {% else %}
+              Author:
+            {% endif %}
+          </strong> {{ page.authors | join: ', ' }}</p>
+        {% endif %}
+        
+        <p><strong>ACME Grant Date:</strong> {{ page.date }}</p>
+        <p>{{ page.description }}</p>
+        
+        {% if page.savings %}
+          <p><strong>Amount Saved by GW Students:</strong> ${{ page.savings }}</p>
+        {% endif %}
+      {% endif %}
+    </main>
+  </div>
+  <div class="right works">
     {{ content }}
-  </main>
-
-  <footer>
-    <p>Footer content - lorem ipsum....</p>
-  </footer>
-
+  </div>
 </body>
 </html>
