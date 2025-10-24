@@ -16,6 +16,14 @@
     font-style: italic;
 }
 
+@font-face {
+  font-family: "Hoefler";
+  src:
+    url("../fonts/HOEFLERTXT-ROMAN.OTF") format("opentype");
+    font-weight: 300;
+    font-style: normal;
+}
+
 :root {
   --gw-white: #ffffff;
   --gw-light: #eeeeee;
@@ -108,6 +116,7 @@ body.preload .btn {
   box-sizing: border-box;
   padding-inline: 2rem;
   padding-block: 1rem;
+  position: relative;
 
   header nav {
     display: flex;
@@ -155,7 +164,84 @@ body.preload .btn {
   overflow: auto;
   box-sizing: border-box;
   border-left: 1rem solid var(--gw-dark-blue);
-  background-color: var(--gw-hover-buff);
+  background-color: var(--gw-dark-blue);
+
+  section.grid {
+    display: grid;
+    padding: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0.4rem;
+      min-height: 19.6rem;
+      background-color: var(--gw-white);
+      /* box-shadow: rgba(0,0,0,0.1) 0px 20px 25px -5px,rgba(0,0,0,0.04) 0px 10px 10px -5px; */
+      transition: all 0.2s ease-in;
+
+      .title {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        height: 9rem;
+        background-color: var(--gw-white);
+        position: relative;
+
+        img#equity {
+          box-sizing: border-box;
+          width: 40%;
+          height: auto;
+          position: absolute;
+          top: 0.5rem;
+          left: 0.5rem;
+        }
+
+        h2 {
+          display: flex;
+          flex-direction: column;
+          justify-content: end;
+          height: 100%;
+          width: 100%;
+          margin: 0;
+          padding: 0.5rem 1rem;
+          box-sizing: border-box;
+          position: relative;
+          z-index: 2;
+          font-family: "Hoefler";
+          font-size: var(--font-size);
+          line-height: 0.8;
+          text-align: right;
+          text-shadow: #fff -0.04rem -0.04rem 0,#fff 0.04rem -0.04rem 0,#fff -0.04rem 0.04rem 0,#fff 0.04rem 0.04rem 0;
+        }
+
+        a {
+          display: inline-block;
+          color: var(--gw-dark-blue);
+          text-decoration: none;
+          box-sizing: border-box;
+        }
+      }
+
+      .info {
+        padding: 1rem;
+
+        .desc {
+          display: -webkit-box;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;  
+          overflow: hidden;
+        }
+      }
+
+      &:hover {
+        transform: translateY(-0.7rem);
+        /* box-shadow: 0 20px 30px -6px rgba(6,14,58,0.26); */
+      }
+    }
+  }
 
   > .wrapper {
     display: flex;
@@ -189,94 +275,6 @@ body.preload .btn {
       background-color: var(--gw-white);
     }
   }
-
-  table {
-    table-layout: fixed;
-    width: 100%;
-    text-align: left;
-    position: relative;
-    border-collapse: collapse;
-    border-spacing: 0;
-    padding-bottom: 1rem;
-
-    h2 {
-      margin: 0;
-      color: var(--gw-white);
-      font-size: 1.2rem;
-      font-weight: 200;
-    }
-
-    h3 {
-      margin: 0;
-      font-size: 1.6rem;
-
-      a {
-        font-size: 1.6rem;
-        font-weight: 200;
-        width: 100%;
-        box-sizing: border-box;
-        color: var(--gw-dark-blue);
-        text-decoration: underline var(--gw-buff) 2px;
-
-        &:hover {
-          text-decoration: underline var(--gw-hover) 2px;
-        }
-      }
-    }
-
-    thead tr th {
-      background-color: var(--gw-dark-blue);
-      color: var(--gw-white);
-      position: sticky;
-      top: 0;
-      padding: 1rem;
-      max-height: fit-content;
-
-      &#title {
-        width: 25%;
-      }
-
-      &#desc {
-        width: 35%;
-      }
-
-      &#auth {
-        width: 15%;
-      }
-
-      &#date {
-        width: 5%;
-      }
-
-      &#url {
-        width: 20%;
-        word-wrap: break-word;
-      }
-    }
-
-    tbody {
-      padding-bottom: 1rem;
-      background-color: var(--gw-hover-buff);
-
-      tr:nth-child(odd) {
-        background-color: var(--gw-hover-buff);
-      }
-
-      tr:nth-child(even) {
-        background-color: var(--gw-white);
-      }
-
-      td {
-        padding: 1rem;
-        vertical-align: top;
-        font-size: 0.9rem;
-
-        &#url {
-          word-wrap: break-word;
-        }
-      }
-    }
-  }
 }
 
 @media (max-width: 66.6rem) {
@@ -307,11 +305,6 @@ body.preload .btn {
 
       > .wrapper {
         height: 100vh;
-      }
-
-      #desc,
-      #url {
-        display: none;
       }
     }
   }

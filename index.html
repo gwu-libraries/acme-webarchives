@@ -4,27 +4,68 @@ title: Open Educational Resources - ACME Web Archives Collection
 category: home
 ---
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th id="title"><h2>Title</h2></th>
-        <th id="desc"><h2>Description</h2></th>
-        <th id="auth"><h2>Authors</h2></th>
-        <th id="date"><h2>Date</h2></th>
-        <th id="url"><h2>Source</h2></th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- reverse pubs sort by year -->
-      {% assign sorted_pubs = site.data.publications | sort: "date" | reverse %}
-      {% for pub in sorted_pubs %}
-        <tr>
-          <td id="title"><h3><a href="/publications/{{ pub.title | slugify }}/">{{ pub.title }}</a></h3></td>
-          <td id="desc">{{ pub.description }}</td>
-          <td id="auth">{{ pub.authors | join: ', ' }}</td>
-          <td id="date">{{ pub.date }}</td>
-          <td id="url"><a href="{{ pub.embed.url }}">{{ pub.embed.url }}</a></td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <section class="grid">
+    <!-- reverse pubs sort by year -->
+    {% assign sorted_pubs = site.data.publications | sort: "date" | reverse %}
+    {% for pub in sorted_pubs %}
+      <div class="card">
+        <div class="title">
+          <img id="equity" src="/assets/images/equity.png">
+          <h2><a href="/publications/{{ pub.title | slugify }}/">{{ pub.title }}</a></h2>
+        </div>
+        <div class="info">
+          <div class="auth">
+            {{ pub.authors | join: ', ' }}
+          </div>
+          <div class="year">
+            {{ pub.date }}
+          </div>
+          <div class="desc">
+            {{ pub.description }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+  <script>
+    function clampBuilder( minWidthPx, maxWidthPx, minFontSize, maxFontSize ) {
+      const root = document.querySelector( "html" );
+      const pixelsPerRem = Number( getComputedStyle( root ).fontSize.slice( 0,-2 ) );
+
+      const minWidth = minWidthPx / pixelsPerRem;
+      const maxWidth = maxWidthPx / pixelsPerRem;
+
+      const slope = ( maxFontSize - minFontSize ) / ( maxWidth - minWidth );
+      const yAxisIntersection = -minWidth * slope + minFontSize
+
+      return `clamp( ${ minFontSize }rem, ${ yAxisIntersection }rem + ${ slope * 100 }vw, ${ maxFontSize }rem )`;
+    }
+
+    function resize_to_fit(el) {
+      // let fontSize = window.getComputedStyle(element).fontSize;
+      let fontSize = 4;
+      console.log(el.children[0].innerHTML);
+      let chars = el.children[0].innerHTML.split("").length;
+      console.log(chars);
+      if (chars >= 10) {
+        for (let i = 0; i <= chars; i++) {
+          
+          if (chars < 25) {
+            fontSize = fontSize - 0.05;
+          } else if (chars < 50) {
+            fontSize = fontSize - 0.04;
+          } else if (chars < 80) {
+            fontSize = fontSize - 0.028;
+          } else {
+            fontSize = fontSize - 0.015;
+          }
+        }
+      }
+      
+      el.style.setProperty("--font-size", `${clampBuilder(1000, 1668, (fontSize - 0.4), fontSize)}`);
+    }
+    const headings = document.querySelectorAll(".card .title h2");
+    console.log(headings);
+    headings.forEach((x) => resize_to_fit(x));
+
+  </script>
