@@ -6,7 +6,8 @@
   <title>{{ page.title }}</title>
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
-<body>
+<body class="preload">
+  <script>(_=>{let a})()</script>
   <div class="left info">
     <header>
       <nav>
@@ -18,27 +19,44 @@
       </nav>
     </header>
     <main>
-      <h1>{{ page.title }}</h1>
+      {% if page.category == 'home' %}
+      <h1 class="title-home">
+      {% else %}
+      <h1 class="title-pub">
+      {% endif %}
+      {{ page.title }}</h1>
       {% if page.category == 'home' %}
         <div class="intro_p">
           <p>Explore archived versions of open educational resources created through support of the <a href="https://library.gwu.edu/adapting-course-materials-for-equity-grant">Adapting Course Materials for Equity Faculty Grant (ACME)</a>. ACME awards stipends to GW faculty to adopt and adapt open or zero-cost course materials.</p>
         </div>
       {% else %}
         {% if page.authors %}
-          <p><strong>
-            {% if page.authors.size > 1 %}
-              Authors:
-            {% else %}
-              Author:
-            {% endif %}
-          </strong> {{ page.authors | join: ', ' }}</p>
+          <div class="metadata">
+            <p><span>
+              {% if page.authors.size > 1 %}
+                Authors: 
+              {% else %}
+                Author: 
+              {% endif %}
+            </span>
+            {{ page.authors | join: ', ' }}</p>
+          </div>
         {% endif %}
-        
-        <p><strong>ACME Grant Date:</strong> {{ page.date }}</p>
-        <p>{{ page.description }}</p>
-        
+        {% if page.date %}
+          <div class="metadata">
+            <p><span>ACME Grant Date: </span>{{ page.date }}</p>
+          </div>
+        {% endif %}
         {% if page.savings %}
-          <p><strong>Amount Saved by GW Students:</strong> ${{ page.savings }}</p>
+          <div class="metadata">
+            <p><span>Amount Saved by GW Students: </span>${{ page.savings }}</p>
+          </div>
+        {% endif %}
+
+        {% if page.description %}
+          <div class="metadata">
+            <span class="screenreader">Description: </span><p>{{ page.description }}</p>
+          </div>
         {% endif %}
       {% endif %}
     </main>
@@ -46,5 +64,10 @@
   <div class="right works">
     {{ content }}
   </div>
+  <script>
+    window.addEventListener("load", () => {
+      document.body.classList.remove("preload");
+    });
+  </script>
 </body>
 </html>
