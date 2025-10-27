@@ -164,6 +164,7 @@ body.preload .btn {
   overflow: auto;
   box-sizing: border-box;
   background-color: var(--gw-dark-blue);
+  scrollbar-gutter: stable;
 
   section.grid {
     display: grid;
@@ -178,10 +179,10 @@ body.preload .btn {
       margin-bottom: 0.4rem;
       min-height: 19.6rem;
       background-color: var(--gw-dark-blue);
-      background-color: rgba(255, 255, 255, 0.05);
-      /* box-shadow: rgba(0,0,0,0.1) 0px 20px 25px -5px,rgba(0,0,0,0.04) 0px 10px 10px -5px; */
+      /* background-color: rgba(255, 255, 255, 0.05); */
+      box-shadow: rgba(0,0,0,0.1) 0px 20px 25px -5px,rgba(0,0,0,0.04) 0px 10px 10px -5px;
       transition: all 0.2s ease-in;
-      border: 1px solid var(--gw-white);
+      border: 3px double var(--gw-white);
 
       a.card-link {
         text-decoration: none;
@@ -221,7 +222,7 @@ body.preload .btn {
           text-align: right;
           /* text-shadow: #fff -0.04rem -0.04rem 0,#fff 0.04rem -0.04rem 0,#fff -0.04rem 0.04rem 0,#fff 0.04rem 0.04rem 0; */
           display: inline-block;
-          color: var(--gw-buff);
+          color: var(--gw-white);
           text-decoration: none;
           box-sizing: border-box;
         }
@@ -267,7 +268,7 @@ body.preload .btn {
 
   nav {
     height: 3.5rem;
-    
+
     a {
       position: absolute;
       margin-left: -1px;
@@ -293,8 +294,8 @@ body.preload .btn {
     width: 100%;
     
     > replay-web-page {
-      border: 3px double var(--gw-white);
-      background-color: var(--gw-dark-blue);
+      outline: 3px double var(--gw-white);
+      background-color: var(--gw-white);
     }
   }
 }
