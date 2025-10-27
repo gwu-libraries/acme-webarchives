@@ -9,15 +9,25 @@ category: home
     {% assign sorted_pubs = site.data.publications | sort: "date" | reverse %}
     {% for pub in sorted_pubs %}
       <div class="card">
-        <div class="title">
-          <img id="equity" src="/assets/images/equity.png">
-          <h2><a href="/publications/{{ pub.title | slugify }}/">{{ pub.title }}</a></h2>
-        </div>
+        <a class="card-link" href="/publications/{{ pub.title | slugify }}/">
+          <div class="title">
+            <img id="equity" src="/assets/images/equity.png">
+            <h2>{{ pub.title }}</h2>
+          </div>
+        </a>
         <div class="info">
           <div class="auth">
+            <span>
+              {% if pub.authors.size > 1 %}
+                Authors: 
+              {% else %}
+                Author: 
+              {% endif %}
+            </span>
             {{ pub.authors | join: ', ' }}
           </div>
           <div class="year">
+            <span>Year: </span>
             {{ pub.date }}
           </div>
           <div class="desc">
@@ -44,8 +54,8 @@ category: home
     function resize_to_fit(el) {
       // let fontSize = window.getComputedStyle(element).fontSize;
       let fontSize = 4;
-      console.log(el.children[0].innerHTML);
-      let chars = el.children[0].innerHTML.split("").length;
+      console.log(el.children[1].innerHTML);
+      let chars = el.children[1].innerHTML.split("").length;
       console.log(chars);
       if (chars >= 10) {
         for (let i = 0; i <= chars; i++) {
@@ -64,8 +74,8 @@ category: home
       
       el.style.setProperty("--font-size", `${clampBuilder(1000, 1668, (fontSize - 0.4), fontSize)}`);
     }
-    const headings = document.querySelectorAll(".card .title h2");
-    console.log(headings);
+    const headings = document.querySelectorAll(".card .title");
+    console.log(headings[0].children);
     headings.forEach((x) => resize_to_fit(x));
 
   </script>
