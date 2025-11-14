@@ -1,39 +1,81 @@
 ---
 layout: default
-title: Home
+title: Open Educational Resources - ACME Web Archives Collection
+category: home
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <section class="grid">
+    <!-- reverse pubs sort by year -->
+    {% assign sorted_pubs = site.data.publications | sort: "date" | reverse %}
+    {% for pub in sorted_pubs %}
+      <div class="card">
+        <a class="card-link" href="/publications/{{ pub.title | slugify }}/">
+          <div class="title">
+            <img id="equity" src="/assets/images/equity.png">
+            <h2>{{ pub.title }}</h2>
+          </div>
+        </a>
+        <div class="info">
+          <div class="auth">
+            <span>
+              {% if pub.authors.size > 1 %}
+                Authors: 
+              {% else %}
+                Author: 
+              {% endif %}
+            </span>
+            {{ pub.authors | join: ', ' }}
+          </div>
+          <div class="year">
+            <span>Year: </span>
+            {{ pub.date }}
+          </div>
+          <div class="desc">
+            {{ pub.description }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+  <script>
+    function clampBuilder( minWidthPx, maxWidthPx, minFontSize, maxFontSize ) {
+      const root = document.querySelector( "html" );
+      const pixelsPerRem = Number( getComputedStyle( root ).fontSize.slice( 0,-2 ) );
 
-<h1> Open Educational Resources - ACME Web Archives Collection</h1>
+      const minWidth = minWidthPx / pixelsPerRem;
+      const maxWidth = maxWidthPx / pixelsPerRem;
 
-<div class="intro_p">
-  <p>Explore archived versions of open educational resources created through support of the <a href="https://library.gwu.edu/adapting-course-materials-for-equity-grant">Adapting Course Materials for Equity Faculty Grant (ACME)</a>. ACME awards stipends to GW faculty to adopt and adapt open or zero-cost course materials.</p>
-</div>
+      const slope = ( maxFontSize - minFontSize ) / ( maxWidth - minWidth );
+      const yAxisIntersection = -minWidth * slope + minFontSize
 
-<div class="card-grid">
-<!--reverse oubs sort by year-->
-  {% assign sorted_pubs = site.data.publications | sort: "date" | reverse %}
-  {% for pub in sorted_pubs %}
-    <div class="card">
-      <h2><a href="/publications/{{ pub.title | slugify }}/">{{ pub.title }}</a></h2>
+      return `clamp( ${ minFontSize }rem, ${ yAxisIntersection }rem + ${ slope * 100 }vw, ${ maxFontSize }rem )`;
+    }
 
-      {% if pub.authors %}
-        <p><strong>
-        <!---if multiple authors present "authors", if 1 author present "author"-->
-          {% if pub.authors.size > 1 %}
-            Authors:
-          {% else %}
-            Author:
-          {% endif %}
-        </strong> {{ pub.authors | join: ', ' }}</p>
-      {% endif %}
+    function resize_to_fit(el) {
+      // let fontSize = window.getComputedStyle(element).fontSize;
+      let fontSize = 4;
+      console.log(el.children[1].innerHTML);
+      let chars = el.children[1].innerHTML.split("").length;
+      console.log(chars);
+      if (chars >= 10) {
+        for (let i = 0; i <= chars; i++) {
+          
+          if (chars < 25) {
+            fontSize = fontSize - 0.05;
+          } else if (chars < 50) {
+            fontSize = fontSize - 0.04;
+          } else if (chars < 80) {
+            fontSize = fontSize - 0.028;
+          } else {
+            fontSize = fontSize - 0.015;
+          }
+        }
+      }
+      
+      el.style.setProperty("--font-size", `${clampBuilder(1000, 1668, (fontSize - 0.4), fontSize)}`);
+    }
+    const headings = document.querySelectorAll(".card .title");
+    console.log(headings[0].children);
+    headings.forEach((x) => resize_to_fit(x));
 
-      <p><strong>ACME Grant Year:</strong> {{ pub.date }}</p>
-      {% if pub.savings %}
-        <p><strong>Amount Saved by GW Students:</strong> ${{ pub.savings }}</p>
-      {% endif %}
-      <p>{{ pub.description }}</p>
-    </div>
-  {% endfor %}
-</div>
+  </script>
